@@ -1,0 +1,32 @@
+.header-app {
+  background-color: #282c34;
+  color: #fff;
+  padding: 10px;
+
+  display: flex;
+  flex-direction: column;
+
+  justify-content: center;
+  align-items: center;
+}
+
+.header-app h1 {
+  margin: 2px;
+}
+
+.header-app nav {
+  display: flex;
+  justify-content: space-between;
+  width: 80%;
+}
+
+.header-app nav a {
+  text-decoration: none;
+  color: #fff;
+  font-weight: bold;
+}
+
+.header-app nav a:hover {
+  color: #61dafb;
+  text-decoration: underline;
+}
