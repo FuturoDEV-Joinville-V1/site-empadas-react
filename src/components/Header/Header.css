@@ -11,13 +11,14 @@
 }
 
 .header-app h1 {
-  margin: 2px;
+  margin: 5px;
 }
 
 .header-app nav {
   display: flex;
   justify-content: space-between;
   width: 80%;
+  margin-top: 20px;
 }
 
 .header-app nav a {
