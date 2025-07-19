@@ -1,5 +1,6 @@
 import './ItemCardapio.css';
-import PropTypes from 'prop-types';
+
+
 
 function ItemReceita({title, description, price}) {
   return (
@@ -18,12 +19,6 @@ function ItemReceita({title, description, price}) {
       </button>
     </article>
   );
-}
-
-ItemReceita.propTypes  = {
-  title: PropTypes.string.isRequired,
-  description: PropTypes.string,
-  price: PropTypes.number
 }
 
 export default ItemReceita;
