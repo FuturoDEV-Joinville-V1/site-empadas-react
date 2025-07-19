@@ -1,17 +1,18 @@
 import "./App.css";
-import ItemReceita from "./components/ItemCardapio";
-import Header from "./components/Header";
+
+import ItemReceita from "./components/ItemCardapio/ItemCardapio";
+import Header from "./components/Header/Header";
+import ContactUs from "./components/Contact/ContactUs";
 
 function App() {
   return (
     <div>
+      
       <Header />
 
-      <section>
+      <section className="container-cardapio" id="cardapio">
         <h2>Nosso Cardápio</h2>
-
-        <div className="container-cardapio">
-          
+        <div className="content-cardapio">
           <ItemReceita
             title="Empada de carne"
             description="Empada recheada com carne temperada e massa crocante."
@@ -39,6 +40,11 @@ function App() {
           />
         </div>
       </section>
+      
+      <ContactUs />
+
+
+     
     </div>
   );
 }
