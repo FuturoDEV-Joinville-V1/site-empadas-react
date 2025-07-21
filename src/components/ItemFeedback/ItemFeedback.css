@@ -1,0 +1,9 @@
+.item-feedback {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  background-color: #e6fffa;
+  padding: 20px;
+  width: 70%;
+  margin: 0 auto;
+}
