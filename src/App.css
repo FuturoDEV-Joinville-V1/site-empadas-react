@@ -1,15 +1,4 @@
-
 .container-cardapio {
-  margin: 20px;
-}
-
-.container-cardapio h2 {
-  margin-bottom: 20px;
-  font-weight: bold;
-  font-size: 22px
-}
-
-.content-cardapio {
   display: flex;
   flex-wrap: wrap;
   gap: 10px;

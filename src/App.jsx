@@ -10,9 +10,11 @@ function App() {
     <div>
       <Header />
 
-      <section className="container-cardapio" id="cardapio">
+      <section>
         <h2>Nosso Cardápio</h2>
-        <div className="content-cardapio">
+
+        <div className="container-cardapio">
+          
           <ItemReceita
             title="Empada de carne"
             description="Empada recheada com carne temperada e massa crocante."
