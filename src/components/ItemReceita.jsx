@@ -1,4 +1,4 @@
-import './ItemCardapio.css';
+import './ItemReceita.css';
 
 
 

@@ -2,8 +2,27 @@ import { useState } from "react";
 import "./Form.css";
 
 import { ToastContainer, toast } from "react-toastify";
+import Lottie from "react-lottie";
+import LoadingAnimation from "./assets/loading.json";
+
+const defaultOptions = {
+  loop: true,
+  autoplay: true,
+  animationData: LoadingAnimation,
+  rendererSettings: {
+    preserveAspectRatio: "xMidYMid slice",
+  },
+};
 
 function Form() {
+
+  // const [form, setForm] = useState({
+  //   name: '',
+  //   description: '',
+  //   price: ''
+  // })
+
+
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [price, setPrice] = useState("");
@@ -12,17 +31,58 @@ function Form() {
   const [isZeroLactose, setIsZeroLactose] = useState(false);
   const [flavor, setFlavor] = useState("Carne");
 
+  const [loading, setLoading] = useState(false);
+
   function saveProduct(event) {
     event.preventDefault(); // evitar que tela der refresh
 
     if (!name) {
       toast.error("Nome é obrigatório");
-    } else if(description.length < 20) {
-      toast.error("A descrição deve ter pelo menos 20 caracteres")
-    } else if(price < 0) {
-      toast.error("O preço não pode ser negativo")
+    } else if (description.length < 20) {
+      toast.error("A descrição deve ter pelo menos 20 caracteres");
+    } else if (price < 0) {
+      toast.error("O preço não pode ser negativo");
     } else {
-      // salvar o produto no local storage 
+      setLoading(true);
+
+      const newProduct = {
+        name: name,
+        description: description,
+        price: price,
+        type: type,
+        isVegan: isVegan,
+        isZeroLactose: isZeroLactose,
+        flavor: flavor,
+      };
+
+      // pegar quais produtos que já tem dentro do localStorage
+      let allProductsInLocalStorage = localStorage.getItem("@products");
+      console.log("allProductsInLocalStorage", allProductsInLocalStorage);
+      // obtem o array de produtos
+      allProductsInLocalStorage = !allProductsInLocalStorage
+        ? []
+        : JSON.parse(allProductsInLocalStorage);
+      // insere do array o novo produto
+      allProductsInLocalStorage.push(newProduct);
+      // salvar a array no atualizado no local storage
+      localStorage.setItem(
+        "@products",
+        JSON.stringify(allProductsInLocalStorage)
+      );
+
+      setTimeout(() => {
+        toast.success("Produto inserido com sucesso");
+
+        setName("");
+        setDescription("");
+        setType("");
+        setIsVegan(false);
+        setIsZeroLactose(false);
+        setFlavor("carne");
+        setPrice("");
+
+        setLoading(false);
+      }, 7000);
     }
   }
 
@@ -148,7 +208,11 @@ function Form() {
           </div>
         </fieldset>
 
-        <button type="submit">Cadastrar</button>
+        {loading ? (
+          <Lottie options={defaultOptions} height={60} width={60} />
+        ) : (
+          <button type="submit">Cadastrar</button>
+        )}
       </form>
       <ToastContainer />
     </div>

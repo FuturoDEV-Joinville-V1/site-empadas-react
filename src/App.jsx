@@ -1,11 +1,21 @@
 import "./App.css";
+import {  useEffect, useState } from "react";
+import Header from "./components/Header";
 
-import ItemReceita from "./components/ItemCardapio/ItemCardapio";
-import Header from "./components/Header/Header";
 import ContactUs from "./components/Contact/ContactUs";
 import ItemFeedback from "./components/ItemFeedback/ItemFeedback";
+import ItemReceita from "./components/ItemReceita";
 
 function App() {
+  const [products, setProducts] = useState([]);
+
+  useEffect(() => {
+    const productsInLocalStorage = JSON.parse(
+      localStorage.getItem("@products") 
+    ) || [];
+    setProducts(productsInLocalStorage);
+  }, []); // Deve executar uma unica vez
+
   return (
     <div>
       <Header />
@@ -14,32 +24,22 @@ function App() {
         <h2>Nosso Cardápio</h2>
 
         <div className="container-cardapio">
-          
-          <ItemReceita
-            title="Empada de carne"
-            description="Empada recheada com carne temperada e massa crocante."
-            price={100}
-          />
-          <ItemReceita
-            title="Empada de frango"
-            description="Empada de frango desfiado com temperos especiais."
-            price={50}
-          />
-          <ItemReceita
-            title="Empada de camarao"
-            description="Empada de camarão fresco com molho cremoso."
-            price={90}
-          />
-          <ItemReceita
-            title="Empada de queijo"
-            description="Empada recheada com queijo derretido e suave."
-            price={60}
-          />
-          <ItemReceita
+
+          {products.map((product) => (
+            <ItemReceita
+              title={product.name}
+              description={product.description}
+              price={product.price}
+            />
+          ))}
+
+        
+        
+          {/* <ItemReceita
             title="Empada de palmito"
             description="Empada de palmito com massa leve e saborosa."
             price={80}
-          />
+          /> */}
         </div>
       </section>
 
