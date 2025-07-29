@@ -15,13 +15,11 @@ const defaultOptions = {
 };
 
 function Form() {
-
   // const [form, setForm] = useState({
   //   name: '',
   //   description: '',
   //   price: ''
   // })
-
 
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
@@ -86,6 +84,17 @@ function Form() {
     }
   }
 
+  function alterarPreco(event) {
+    const value = parseFloat(event.target.value);
+
+    if (!value) setPrice("");
+
+    // setPrice(Math.abs(value));
+    if (value >= 0) {
+      setPrice(value);
+    }
+  }
+
   return (
     <div className="container-form">
       <h1>Cadastro de empadas</h1>
@@ -110,21 +119,7 @@ function Form() {
         />
 
         <label>Preço</label>
-        <input
-          type="number"
-          min={0}
-          value={price}
-          onChange={(event) => {
-            const value = parseFloat(event.target.value);
-
-            if (!value) setPrice("");
-
-            // setPrice(Math.abs(value));
-            if (value >= 0) {
-              setPrice(value);
-            }
-          }}
-        />
+        <input type="number" min={0} value={price} onChange={alterarPreco} />
 
         <label>Tipo</label>
         <select
