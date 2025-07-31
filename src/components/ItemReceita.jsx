@@ -1,7 +1,5 @@
 import './ItemReceita.css';
 
-
-
 function ItemReceita({title, description, price}) {
   return (
     <article className="cardapio-item">

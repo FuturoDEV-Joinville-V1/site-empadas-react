@@ -1,9 +1,10 @@
 import { useState } from "react";
 import "./ContactUs.css";
 import { toast, ToastContainer } from "react-toastify";
+import Button from "../Button/Button";
 
 function ContactUs() {
-  const [name, setName] = useState("douglas");
+  const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
   const [message, setMessage] = useState("");
 
@@ -50,6 +51,8 @@ function ContactUs() {
           setName("");
           setPhone("");
           setMessage("");
+        } else {
+          throw new Error();
         }
       })
       .catch(() => {
@@ -98,7 +101,7 @@ function ContactUs() {
           onChange={(event) => setMessage(event.target.value)}
         />
 
-        <button type="submit">Enviar</button>
+        <Button type="submit" title="Enviar" />
       </form>
       <ToastContainer />
     </section>

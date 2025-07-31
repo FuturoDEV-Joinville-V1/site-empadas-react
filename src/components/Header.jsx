@@ -1,8 +1,10 @@
-import './Header.css'
+
+import styles from './Header.module.css'
 
 function Header() {
+  console.log(styles)
   return (
-     <header className="header-app">
+     <header className={`${styles['header-app']} ${styles.container}`}>
         <h1>Empadas do Lab 365</h1>
         <p>O sabor que compila com seu paladar!</p>
         <nav>
