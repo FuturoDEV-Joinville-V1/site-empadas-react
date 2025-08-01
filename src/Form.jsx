@@ -53,6 +53,39 @@ function Form() {
         flavor: flavor,
       };
 
+      fetch("http://localhost:3000/products", {
+        method: "post",
+        body: JSON.stringify(newProduct),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      })
+        .then((response) => {
+          if (response.ok) {
+            setTimeout(() => {
+              toast.success("Produto inserido com sucesso");
+
+              setName("");
+              setDescription("");
+              setType("");
+              setIsVegan(false);
+              setIsZeroLactose(false);
+              setFlavor("carne");
+              setPrice("");
+
+              setLoading(false);
+            }, 7000);
+          } else {
+            throw new Error();
+          }
+        })
+        .catch(() => {
+          toast.error("Houve um erro ao cadastrar. Tente novamente mais tarde");
+        });
+
+      /*
+       // Exemplo de como salvar no localStorage
+
       // pegar quais produtos que já tem dentro do localStorage
       let allProductsInLocalStorage = localStorage.getItem("@products");
       console.log("allProductsInLocalStorage", allProductsInLocalStorage);
@@ -67,20 +100,7 @@ function Form() {
         "@products",
         JSON.stringify(allProductsInLocalStorage)
       );
-
-      setTimeout(() => {
-        toast.success("Produto inserido com sucesso");
-
-        setName("");
-        setDescription("");
-        setType("");
-        setIsVegan(false);
-        setIsZeroLactose(false);
-        setFlavor("carne");
-        setPrice("");
-
-        setLoading(false);
-      }, 7000);
+    */
     }
   }
 

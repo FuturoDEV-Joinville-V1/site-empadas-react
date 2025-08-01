@@ -6,23 +6,39 @@ import ContactUs from "./components/Contact/ContactUs";
 import ItemFeedback from "./components/ItemFeedback/ItemFeedback";
 import ItemReceita from "./components/ItemReceita";
 import Section from "./components/Section/Section";
+import { toast } from "react-toastify";
 
 function App() {
   const [products, setProducts] = useState([]);
   const [feedbacks, setFeedbacks] = useState([]);
 
+  /*
   useEffect(() => {
     const productsInLocalStorage =
       JSON.parse(localStorage.getItem("@products")) || [];
     setProducts(productsInLocalStorage);
   }, []);
+  */
 
   useEffect(() => {
-    fetch("http://localhost:3000/feedbacks").then(async (response) => {
-      const dadosApi = await response.json();
-      setFeedbacks(dadosApi);
-    });
+    fetch("http://localhost:3000/products")
+      .then(async (response) => {
+        const produtosApi = await response.json();
+        setProducts(produtosApi);
+      })
+      .catch(() => toast.error("erro ao buscar os produtos"));
   }, []);
+
+  useEffect(() => {
+    fetch("http://localhost:3000/feedbacks")
+      .then(async (response) => {
+        const dadosApi = await response.json();
+        setFeedbacks(dadosApi);
+      })
+      .catch(() => toast.error("erro ao buscar os feedbacks"));
+  }, []);
+
+  useEffect(() => {}, []);
 
   return (
     <div>
@@ -49,7 +65,6 @@ function App() {
           ))}
         </ul>
       </Section>
-      
     </div>
   );
 }
