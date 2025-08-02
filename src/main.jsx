@@ -5,8 +5,9 @@ import App from './App.jsx'
 import Contador from './Contador.jsx'
 import Form from './Form.jsx'
 
+
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-    <App />
+    <Form />
   </StrictMode>,
 )

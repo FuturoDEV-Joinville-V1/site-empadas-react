@@ -5,6 +5,17 @@ import { ToastContainer, toast } from "react-toastify";
 import Lottie from "react-lottie";
 import LoadingAnimation from "./assets/loading.json";
 
+import Quick from "react-quick-shortcut";
+
+import axios from "axios";
+
+import SendIcon from "@mui/icons-material/Send";
+import Button from "@mui/material/Button";
+
+import TextField from "@mui/material/TextField";
+
+import Card from "@mui/material/Card";
+
 const defaultOptions = {
   loop: true,
   autoplay: true,
@@ -53,35 +64,58 @@ function Form() {
         flavor: flavor,
       };
 
-      fetch("http://localhost:3000/products", {
-        method: "post",
-        body: JSON.stringify(newProduct),
-        headers: {
-          "Content-Type": "application/json",
-        },
-      })
-        .then((response) => {
-          if (response.ok) {
-            setTimeout(() => {
-              toast.success("Produto inserido com sucesso");
+      // versão do código usando Axios
 
-              setName("");
-              setDescription("");
-              setType("");
-              setIsVegan(false);
-              setIsZeroLactose(false);
-              setFlavor("carne");
-              setPrice("");
+      axios
+        .post("http://localhost:3000/products", newProduct)
+        .then(() => {
+          setTimeout(() => {
+            toast.success("Produto inserido com sucesso");
 
-              setLoading(false);
-            }, 7000);
-          } else {
-            throw new Error();
-          }
+            setName("");
+            setDescription("");
+            setType("");
+            setIsVegan(false);
+            setIsZeroLactose(false);
+            setFlavor("carne");
+            setPrice("");
+
+            setLoading(false);
+          }, 7000);
         })
         .catch(() => {
           toast.error("Houve um erro ao cadastrar. Tente novamente mais tarde");
         });
+
+      // fetch("http://localhost:3000/products", {
+      //   method: "post",
+      //   body: JSON.stringify(newProduct),
+      //   headers: {
+      //     "Content-Type": "application/json",
+      //   },
+      // })
+      //   .then((response) => {
+      //     if (response.ok) {
+      //       setTimeout(() => {
+      //         toast.success("Produto inserido com sucesso");
+
+      //         setName("");
+      //         setDescription("");
+      //         setType("");
+      //         setIsVegan(false);
+      //         setIsZeroLactose(false);
+      //         setFlavor("carne");
+      //         setPrice("");
+
+      //         setLoading(false);
+      //       }, 7000);
+      //     } else {
+      //       throw new Error();
+      //     }
+      //   })
+      //   .catch(() => {
+      //     toast.error("Houve um erro ao cadastrar. Tente novamente mais tarde");
+      //   });
 
       /*
        // Exemplo de como salvar no localStorage
@@ -116,31 +150,54 @@ function Form() {
   }
 
   return (
-    <div className="container-form">
+    <Card className="container-form">
       <h1>Cadastro de empadas</h1>
 
+      <Quick
+        hotkey="F8"
+        action={() => {
+          setLoading(true);
+        }}
+      />
+
       <form onSubmit={saveProduct}>
-        <label htmlFor="name">Nome do produto</label>
-        <input
+        <TextField
+          fullWidth
+          label="Nome"
           type="text"
           id="name"
           value={name}
           onChange={(event) => {
             setName(event.target.value);
           }}
-        />
+          
+         className="input-textfield"
 
-        <label>Descrição</label>
-        <textarea
+          
+        />
+        <br />
+
+        <TextField
+          fullWidth
+          label="descrição"
           value={description}
           onChange={(event) => {
             setDescription(event.target.value);
           }}
+           margin="normal"
         />
+        <br />
 
-        <label>Preço</label>
-        <input type="number" min={0} value={price} onChange={alterarPreco} />
-
+        <TextField
+          fullWidth
+          label="preço"
+          type="number"
+          min={0}
+          value={price}
+          onChange={alterarPreco}
+           margin="normal"
+        />
+        <br />
         <label>Tipo</label>
         <select
           value={type}
@@ -191,7 +248,7 @@ function Form() {
               }}
               checked={flavor === "Carne"}
             />
-            <label for="carne">Carne</label>
+            <label htmlFor="carne">Carne</label>
           </div>
 
           <div>
@@ -205,7 +262,7 @@ function Form() {
               }}
               checked={flavor === "Camarão"}
             />
-            <label for="camarao">Camarão</label>
+            <label htmlFor="camarao">Camarão</label>
           </div>
 
           <div>
@@ -219,18 +276,29 @@ function Form() {
               }}
               checked={flavor === "Frango"}
             />
-            <label for="frango">Frango</label>
+            <label htmlFor="frango">Frango</label>
           </div>
         </fieldset>
 
-        {loading ? (
-          <Lottie options={defaultOptions} height={60} width={60} />
-        ) : (
-          <button type="submit">Cadastrar</button>
-        )}
+        <div
+          style={{ display: "flex", justifyContent: "center", marginTop: 20 }}
+        >
+          {loading ? (
+            <Lottie options={defaultOptions} height={60} width={60} />
+          ) : (
+            <Button
+              type="submit"
+              startIcon={<SendIcon htmlColor="red" />}
+              color="success"
+              variant="contained"
+            >
+              Cadastrar
+            </Button>
+          )}
+        </div>
       </form>
       <ToastContainer />
-    </div>
+    </Card>
   );
 }
 

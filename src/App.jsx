@@ -8,6 +8,8 @@ import ItemReceita from "./components/ItemReceita";
 import Section from "./components/Section/Section";
 import { toast } from "react-toastify";
 
+import axios from "axios";
+
 function App() {
   const [products, setProducts] = useState([]);
   const [feedbacks, setFeedbacks] = useState([]);
@@ -21,12 +23,19 @@ function App() {
   */
 
   useEffect(() => {
-    fetch("http://localhost:3000/products")
-      .then(async (response) => {
-        const produtosApi = await response.json();
-        setProducts(produtosApi);
+    axios
+      .get("http://localhost:3000/products")
+      .then((response) => {
+        setProducts(response.data);
       })
       .catch(() => toast.error("erro ao buscar os produtos"));
+
+    // fetch("http://localhost:3000/products")
+    //   .then(async (response) => {
+    //     const produtosApi = await response.json();
+    //     setProducts(produtosApi);
+    //   })
+    //   .catch(() => toast.error("erro ao buscar os produtos"));
   }, []);
 
   useEffect(() => {
@@ -48,6 +57,7 @@ function App() {
         <div className="container-cardapio">
           {products.map((product) => (
             <ItemReceita
+              key={product.id}
               title={product.name}
               description={product.description}
               price={product.price}
@@ -61,7 +71,11 @@ function App() {
       <Section description="Feedback dos clientes">
         <ul>
           {feedbacks.map((feedback) => (
-            <ItemFeedback author={feedback.name} comment={feedback.message} />
+            <ItemFeedback
+              key={feedback.id}
+              author={feedback.name}
+              comment={feedback.message}
+            />
           ))}
         </ul>
       </Section>
