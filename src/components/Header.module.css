@@ -16,8 +16,16 @@
 
 .header-app nav {
   display: flex;
+  gap: 10px;
   justify-content: space-between;
   width: 80%;
+  align-items: center;
+}
+
+.menuItens {
+  display: flex;
+  gap: 10px;
+
 }
 
 .header-app nav a {

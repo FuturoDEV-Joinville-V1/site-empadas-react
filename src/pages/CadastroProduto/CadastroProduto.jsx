@@ -3,7 +3,7 @@ import "./Form.css";
 
 import { ToastContainer, toast } from "react-toastify";
 import Lottie from "react-lottie";
-import LoadingAnimation from "./assets/loading.json";
+import LoadingAnimation from "../../assets/loading.json";
 
 import Quick from "react-quick-shortcut";
 
@@ -25,7 +25,7 @@ const defaultOptions = {
   },
 };
 
-function Form() {
+function CadastroProduto() {
   // const [form, setForm] = useState({
   //   name: '',
   //   description: '',
@@ -302,4 +302,4 @@ function Form() {
   );
 }
 
-export default Form;
+export default CadastroProduto;
