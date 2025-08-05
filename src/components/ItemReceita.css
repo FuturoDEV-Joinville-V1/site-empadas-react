@@ -13,8 +13,11 @@
 }
 
 .cardapio-item button {
-  background-color: #25d366;
   width: 50%;
   border-radius: 8px;
-  color: #fff;
+  color: #000;
+  height: 34px;
+  background-color: #63b3ed;
+  border-color: #63b3ed;
+  cursor: pointer;
 }

@@ -59,9 +59,8 @@ function Home() {
           {products.map((product) => (
             <ItemReceita
               key={product.id}
-              title={product.name}
-              description={product.description}
-              price={product.price}
+              product={product}
+
             />
           ))}
         </div>

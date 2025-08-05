@@ -14,7 +14,7 @@ function Header() {
           </Link>
          
         </div>
-        <Link to="/contador">
+        <Link to="/carrinho">
           <ShoppingCart htmlColor="tomato" fontSize="large" />
         </Link>
       </nav>

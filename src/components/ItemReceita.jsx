@@ -1,19 +1,20 @@
 import './ItemReceita.css';
 
-function ItemReceita({title, description, price}) {
+function ItemReceita({product}) {
+
+  console.log("produto", product)
+
+  function salvarProdutoCarrinho() {
+      localStorage.setItem("@carrinho", JSON.stringify(product))
+  }
+
   return (
     <article className="cardapio-item">
-      <h3>{title}</h3>
-      <p>{description}</p>
-      <span>{Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(price)}</span>
-      <button>
-        <img
-          src="https://cdn-icons-png.flaticon.com/512/733/733585.png"
-          alt="WhatsApp"
-          width="15px"
-          style={{ marginRight: "5px" }}
-        />
-        Pedir no whatzap
+      <h3>{product.name}</h3>
+      <p>{product.description}</p>
+      <span>{Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(product.price)}</span>
+      <button onClick={salvarProdutoCarrinho}>
+        Adicionar no carrinho
       </button>
     </article>
   );
