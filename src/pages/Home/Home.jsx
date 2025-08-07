@@ -10,6 +10,7 @@ import { toast } from "react-toastify";
 import axios from "axios";
 
 import "./Home.css";
+import TabelaCarrinho from "../Carrinho/TabelaCarrinho";
 
 function Home() {
   const [products, setProducts] = useState([]);
@@ -53,6 +54,7 @@ function Home() {
   return (
     <div>
      
+   
 
       <Section description="Nosso cardápio">
         <div className="container-cardapio">

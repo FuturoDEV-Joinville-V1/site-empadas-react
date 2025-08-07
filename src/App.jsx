@@ -8,7 +8,7 @@ import Carrinho from "./pages/Carrinho/Carrinho";
 
 function App() {
   return (
-    <div>
+    <>
       <Header />
       <Routes>
         <Route path="/" Component={Home} />
@@ -16,7 +16,7 @@ function App() {
         <Route path="/contador" Component={Contador} />
         <Route path="/carrinho" Component={Carrinho} />
       </Routes>
-    </div>
+    </>
   );
 }
 
