@@ -1,22 +1,18 @@
+import { toast } from "react-toastify";
 import moneyFormat from "../utils/moneyFormat";
 import "./ItemReceita.css";
+import { useContext } from "react";
+import { CarrinhoContext } from "../contexts/CarrinhoProvider";
 
 function ItemReceita({ product }) {
-  console.log("produto", product);
+
+  const valores = useContext(CarrinhoContext)
 
   function salvarProdutoCarrinho() {
-    let meuCarrinhoAtualNoLocalStorage = localStorage.getItem("@carrinho");
 
-    meuCarrinhoAtualNoLocalStorage = !meuCarrinhoAtualNoLocalStorage
-      ? []
-      : JSON.parse(meuCarrinhoAtualNoLocalStorage);
+    valores.adicionarItemCarrinho(product)
 
-    meuCarrinhoAtualNoLocalStorage.push(product);
-
-    localStorage.setItem(
-      "@carrinho",
-      JSON.stringify(meuCarrinhoAtualNoLocalStorage)
-    );
+    toast.success(product.name + " adicionado ao carrinho")
   }
 
   return (

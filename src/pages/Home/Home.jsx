@@ -15,7 +15,6 @@ import TabelaCarrinho from "../Carrinho/TabelaCarrinho";
 function Home() {
   const [products, setProducts] = useState([]);
   const [feedbacks, setFeedbacks] = useState([]);
-
   /*
   useEffect(() => {
     const productsInLocalStorage =

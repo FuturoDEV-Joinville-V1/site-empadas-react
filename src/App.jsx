@@ -6,6 +6,9 @@ import Contador from "./pages/Contador/Contador";
 import Header from "./components/Header";
 import Carrinho from "./pages/Carrinho/Carrinho";
 
+import 'sweetalert2/src/sweetalert2.scss'
+
+
 function App() {
   return (
     <>

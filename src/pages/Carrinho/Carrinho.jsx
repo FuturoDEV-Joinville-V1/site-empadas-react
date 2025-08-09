@@ -12,54 +12,49 @@ import GrassOutlinedIcon from "@mui/icons-material/GrassOutlined";
 import DinnerDiningOutlinedIcon from "@mui/icons-material/DinnerDiningOutlined";
 import { WhatsApp } from "@mui/icons-material";
 
-import { useEffect, useState } from "react";
+import { useContext } from "react";
 import moneyFormat from "../../utils/moneyFormat";
-import renderizarTela from "../../utils/renderizarTela";
-import Home from "../Home/Home";
 
-import styles from './Carrinho.module.css'
+import styles from "./Carrinho.module.css";
+import Swal from "sweetalert2";
+import { CarrinhoContext } from "../../contexts/CarrinhoProvider";
 
 function Carrinho() {
-  const [carrinho, setCarrinho] = useState([]);
+  const valores = useContext(CarrinhoContext);
 
   function somarTotal() {
     let total = 0;
-    carrinho.map((item) => {
+    valores.carrinho.map((item) => {
       total = total + Number(item.price);
     });
     return total;
   }
 
-  function somarComReduce() {
-    return carrinho.reduce((accumlador, itemAtual) => {
-      return accumlador + Number(itemAtual.price);
-    }, 0);
-  }
-
   function sendMessageWhatzap() {
     const numero = "85991811574";
-    const quantidade = carrinho.length;
+    const quantidade = valores.carrinho.length;
     const valor = moneyFormat(somarTotal());
 
     const mensagem = `Olá, desejo ${quantidade} empadas no valor de ${valor}`;
-   
+
     const url = `https://wa.me/${numero}?text=${encodeURIComponent(mensagem)}`;
     window.open(url, "_blank");
-  }
 
-  useEffect(() => {
-    const meuCarrinhoNoLocalStorage = JSON.parse(
-      localStorage.getItem("@carrinho")
-    );
-    setCarrinho(meuCarrinhoNoLocalStorage);
-  }, []);
+    Swal.fire({
+      title: "Pedido enviado",
+      text: "Seu pedido foi enviado e está sendo processado pela nossa equipe. Já falamos com você no whatsapp",
+      icon: "success",
+    });
+
+    localStorage.removeItem("@carrinho");
+  }
 
   return (
     <Paper elevation={3} style={{ width: "50%", margin: "0 auto" }}>
       <h2>Suas empadas</h2>
 
       <List>
-        {carrinho.map((empada, index) => (
+        {valores.carrinho.map((empada, index) => (
           <ListItem key={index}>
             <ListItemIcon>
               {empada.isVegan === true ? (
@@ -72,19 +67,15 @@ function Carrinho() {
             {moneyFormat(empada.price)}
           </ListItem>
         ))}
-
-        <ListItem>
-          <ListItemIcon>
-            <DinnerDiningOutlinedIcon />
-          </ListItemIcon>
-          <ListItemText>Empada de carne</ListItemText>
-          R$ 12,00
-        </ListItem>
       </List>
 
       <div className={styles.rodapeTabelaPedido}>
         <span>Total: {moneyFormat(somarTotal())}</span>
-        <Button onClick={sendMessageWhatzap} variant="contained" endIcon={<WhatsApp />}>
+        <Button
+          onClick={sendMessageWhatzap}
+          variant="contained"
+          endIcon={<WhatsApp />}
+        >
           Enviar pedido
         </Button>
       </div>
